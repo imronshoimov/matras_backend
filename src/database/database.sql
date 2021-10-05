@@ -1,4 +1,4 @@
--- tablelar
+z-- tablelar
 -- 1. carousel --> [img1, img2, img3, img4] = arr;
 -- 2. statistics --> experience, clients, warranty, delivery;
 -- 2. products --> id, name, img, weight, warranty, size, capacity, body, old_cost, new_cost, category, status(enum), date;
