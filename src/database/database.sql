@@ -70,7 +70,7 @@ CREATE TABLE address(
 CREATE TABLE contact(
     id serial primary key,
     number varchar(9),
-    contacted int default 0,
+    contacted type default '0',
     time timestamptz default current_timestamp,
     is_active type default '1'
 );

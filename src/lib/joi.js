@@ -17,3 +17,7 @@ exports.ordersSchema = Joi.object({
     productName: Joi.string().not(""),
     count: Joi.number().not("")
 })
+
+exports.contactSchema = Joi.object({
+    number: Joi.string().min(9).required()
+})

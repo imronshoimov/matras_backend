@@ -1,4 +1,4 @@
-const { carouselSchema, statisticsSchema, ordersSchema } = require("../lib/joi");
+const { carouselSchema, statisticsSchema, ordersSchema, contactSchema } = require("../lib/joi");
 
 exports.validateCarousel = (req, res, next) => {
     const data = carouselSchema.validate(req.body);
@@ -27,6 +27,16 @@ exports.validateStatistics = (req, res, next) => {
 
 exports.validateOrders = (req, res, next) => {
     const data = ordersSchema.validate(req.body);
+    if(data.error) {
+        res.status(403)
+            .json({ message: data.error.details[0].message });
+    } else {
+        next();
+    };
+}
+
+exports.validateContact = (req, res, next) => {
+    const data = contactSchema.validate(req.body);
     if(data.error) {
         res.status(403)
             .json({ message: data.error.details[0].message });
