@@ -3,8 +3,9 @@ const { fetch, fetchAll } = require("../lib/connectdb");
 const SELECT_CONTACT = `
 SELECT 
     id,
-    number,
-    time
+    '+998' || number as number, 
+    TO_CHAR(time, 'yyyy-MM-dd HH24:MI:SS') as time,
+    contacted
 FROM contact;
 `
 
@@ -15,5 +16,13 @@ INSERT INTO contact (
 RETURNING id;
 `;
 
+const CONTACTED = `
+UPDATE contact
+SET contacted = '1'
+WHERE id = $1
+RETURNING id;
+`;
+
 exports.getContacts = () => fetchAll(SELECT_CONTACT);
 exports.insertContact = ({ number }) => fetch(INSERT_CONTACT, number);
+exports.contacted = (id) => fetch(CONTACTED, id);

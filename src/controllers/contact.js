@@ -21,3 +21,14 @@ exports.insertData = async (req, res) => {
             .json({ message: "Bad request, please try again!" });
     };
 };
+
+exports.updateData = async (req, res) => {  
+    const data = await model.contacted(req.params.id);
+    if(data) {
+        res.status(200)
+            .json({ message: "Successfully updated!", id: data.id });
+    } else {
+        res.status(400)
+            .json({ message: "Error, please try again!" });
+    };
+};
