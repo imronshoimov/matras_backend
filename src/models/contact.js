@@ -6,7 +6,8 @@ SELECT
     '+998' || number as number, 
     TO_CHAR(time, 'yyyy-MM-dd HH24:MI:SS') as time,
     contacted
-FROM contact;
+FROM contact
+WHERE is_active = '1';
 `
 
 const INSERT_CONTACT = `
@@ -23,6 +24,14 @@ WHERE id = $1
 RETURNING id;
 `;
 
+const DELETE_CONTACT = `
+UPDATE contact 
+SET is_active = '0'
+WHERE id = $1
+RETURNING id;
+`
+
 exports.getContacts = () => fetchAll(SELECT_CONTACT);
 exports.insertContact = ({ number }) => fetch(INSERT_CONTACT, number);
 exports.contacted = (id) => fetch(CONTACTED, id);
+exports.deleteContact = (id) => fetch(DELETE_CONTACT, id);
