@@ -16,6 +16,7 @@ exports.getData = async (req, res) => {
 
 exports.insertData = async (req, res) => {
     const file = req.file.filename ? req.file.filename : req.json({ message: "image is required" });
+    console.log(file);
     const data = await model.insertCarousel(req.body.title, req.file.filename);
     if(data) {
         res.status(201)
