@@ -27,7 +27,8 @@ CREATE TABLE statistics(
 CREATE TABLE categories(
     id serial primary key,
     category varchar(60) not null,
-    time timestamptz default current_timestamp
+    time timestamptz default current_timestamp,
+    is_active active_type default '1'
 );
 
 CREATE TABLE products(
