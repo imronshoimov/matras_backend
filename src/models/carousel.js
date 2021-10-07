@@ -7,6 +7,8 @@ FROM carousel
 WHERE is_active = '1';
 `
 
+const COUNTS = `SELECT COUNT(id) FROM carousel;`;
+
 const INSERT_CAROUSEL = `
 INSERT INTO carousel (
     title,
@@ -38,6 +40,7 @@ WHERE id = $1;
 `;
 
 exports.getCarousel = () => fetchAll(GET_CAROUSEL);
+exports.counts= () => fetch(COUNTS);
 exports.insertCarousel = (title, image) => fetch(INSERT_CAROUSEL, title, image );
 exports.updateCarousel = (id, { title, image }) => fetch(UPDATE_CAROUSEL, title, image, id);
 exports.selectImage = (id) => fetch(SELECT_IMAGE, id);

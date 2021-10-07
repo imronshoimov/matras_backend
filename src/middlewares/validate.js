@@ -33,7 +33,7 @@ exports.validateOrders = (req, res, next) => {
     } else {
         next();
     };
-}
+};
 
 exports.validateContact = (req, res, next) => {
     const data = contactSchema.validate(req.body);
@@ -43,4 +43,4 @@ exports.validateContact = (req, res, next) => {
     } else {
         next();
     };
-}
+};
