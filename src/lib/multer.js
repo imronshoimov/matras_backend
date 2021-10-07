@@ -23,6 +23,6 @@ const fileUpload = (folderName, fileType = "image") => {
             }
         }
     }).single(fileType);
-}
+};
 
 module.exports = fileUpload;

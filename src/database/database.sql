@@ -24,8 +24,15 @@ CREATE TABLE statistics(
     is_active active_type default '1'
 );
 
+CREATE TABLE categories(
+    id serial primary key,
+    category varchar(60) not null,
+    time timestamptz default current_timestamp
+);
+
 CREATE TABLE products(
     id serial primary key,
+    category_id int not null references categories(id),
     name varchar(50) not null,
     image varchar(70) not null,
     product_image text [],

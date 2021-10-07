@@ -29,7 +29,6 @@ exports.insertData = async (req, res) => {
                 .json({ message: "Bad request, please try again!" });
         };
     };
-    
 };
 
 exports.updateData = async (req, res) => {
