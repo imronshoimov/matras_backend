@@ -33,3 +33,14 @@ exports.insertData = async (req, res) => {
         };
     }
 };
+
+exports.updateData = async (req, res) => {
+    const data = await model.updateCategory(req.params.id);
+    if(data) {
+        res.status(200)
+            .json({ message: "Successfully updated!", id: data.id });
+    } else {
+        res.status(400)
+            .json({ message: "Error, please try again!" });
+    };
+};

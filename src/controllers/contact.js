@@ -9,7 +9,7 @@ exports.getData = async (req, res) => {
         res.status(401)
             .json({ message: "There is an error, please try again!" });
     };
-}
+};
 
 exports.insertData = async (req, res) => {
     const data = await model.insertContact(req.body);

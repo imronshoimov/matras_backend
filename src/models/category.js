@@ -20,7 +20,15 @@ SET is_active = '0'
 WHERE id = $1;
 `;
 
+const UPDATE_CATEGORY = `
+UPDATE categories
+SET is_active = '0'
+WHERE id = $1
+RETURNING id;
+`
+
 exports.getCategories = () => fetchAll(SELECT_CATEGORY);
 exports.insertCategory = (category) => fetch(INSERT_CATEGORY, category);
 exports.updateIsActive = (id) => fetch(IS_ACTIVE, id);
+exports.updateCategory = (id) => fetch(UPDATE_CATEGORY, id);
 
