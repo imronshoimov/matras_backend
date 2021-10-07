@@ -21,3 +21,8 @@ exports.ordersSchema = Joi.object({
 exports.contactSchema = Joi.object({
     number: Joi.string().min(9).required()
 });
+
+exports.categorySchema = Joi.object({
+    category: Joi.string().not("").min(3).max(30),
+    isActive: Joi.boolean().not("")
+})
