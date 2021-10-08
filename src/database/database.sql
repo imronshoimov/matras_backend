@@ -34,19 +34,43 @@ CREATE TABLE categories(
 CREATE TABLE products(
     id serial primary key,
     category_id int not null references categories(id),
-    name varchar(50) not null,
-    image varchar(70) not null,
-    product_image text [],
+    name varchar(50) not null, 
+    product_images text [],
     weight smallint not null,
     warranty smallint not null,
     size varchar(60) not null,
     capacity smallint not null,
     body text not null,
-    old_cost bigint not null default null,
-    new_cost bigint not null,
-    category smallint not null,
-    status type default '1',
+    cost bigint not null,
+    new_cost bigint, 
+    status boolean not null,
     is_active active_type default '1'
+);
+
+INSERT INTO products (
+    category_id,
+    name,
+    product_images,
+    weight,
+    warranty,
+    size,
+    capacity,
+    body,
+    cost,
+    new_cost,
+    status
+) VALUES 
+(
+    1,
+    'Lux Soft Memory',
+    []
+    150,
+    3,
+    '200x120x40',
+    2,
+    'Penatibus viverra gravida rhoncus in. At turpis morbi ante tortor a est. Habitant adipiscing ut sed pulvinar tellus, ut urna, fermentum. Porttitor senectus lorem rhoncus facilisi ac dictum varius egestas.',
+    1699999,
+    true
 );
 
 CREATE TABLE orders(

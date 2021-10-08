@@ -12,3 +12,14 @@ exports.getData = async (req, res) => {
             .json({ message: "There is an error, please try again!" });
     };
 };
+
+exports.insertData = async (req, res) => {
+    const data = await model.insertProduct(req.body);
+    if(data) {
+        res.status(201)
+            .json({ message: "Product successfully added!", id: data.id });
+    } else {
+        res.status(400)
+            .json({ message: "Bad request, please try again!" });
+    };
+};
