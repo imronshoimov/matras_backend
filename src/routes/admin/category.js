@@ -4,7 +4,7 @@ const { validateCategory } = require("../../middlewares/validate");
 
 router.get("/categories", getData);
 router.post("/categories", validateCategory, insertData);
-router.put("/categories/:id", updateData);
+router.put("/categories/:id", validateCategory, updateData);
 router.patch("/categories/:id", deleteData);
 
 module.exports = router;

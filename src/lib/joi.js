@@ -25,4 +25,4 @@ exports.contactSchema = Joi.object({
 exports.categorySchema = Joi.object({
     category: Joi.string().not("").min(3).max(30),
     isActive: Joi.boolean().not("")
-})
+});
