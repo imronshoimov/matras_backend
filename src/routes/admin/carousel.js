@@ -4,8 +4,8 @@ const fileUpload = require("../../lib/multer");
 const { validateCarousel } = require("../../middlewares/validate");
 
 router.get("/carousel", getData);
-router.post("/carousel", fileUpload("carousel"), validateCarousel, insertData);
-router.put("/carousel/:id", fileUpload("carousel"), validateCarousel, updateData);
+router.post("/carousel", fileUpload("carousel").single("image"), validateCarousel, insertData);
+router.put("/carousel/:id", fileUpload("carousel").single("image"), validateCarousel, updateData);
 router.delete("/carousel/:id", deleteData);
 
 module.exports = router;
