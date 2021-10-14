@@ -1,5 +1,6 @@
 const multer = require("multer");
 const path = require("path");
+console.log(path.join(process.cwd(), "src", "uploads", "products"));
 
 const fileUpload = (folderName) => {
     const storage = multer.diskStorage({
@@ -12,7 +13,6 @@ const fileUpload = (folderName) => {
     });
     return multer({ 
         storage,
-        limits: { fileSize: 5 * 1024 * 1024 },
         fileFilter: function(req, file, cb) {
             const fileTypes = /jpeg|jpg|png|mkv|flv|ogv|mov|mpg|mpv|wmv/;
             const extName = fileTypes.test(path.extname(file.originalname).toLowerCase());
@@ -20,13 +20,10 @@ const fileUpload = (folderName) => {
             if(extName && mimeType) {
                 cb(null, true);
             } else {
-                cb(null, false);
-                const error = new Error("Error: Images or vidoes only!");
-                error.name = "ExtensionError";
-                return cb(error);
+                cb("Error: Images or vidoes only!");
             }
         }
-    });
+    })
 };
 
 module.exports = fileUpload;

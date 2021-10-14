@@ -14,17 +14,18 @@ exports.getData = async (req, res) => {
 };
 
 exports.insertData = async (req, res) => {
-    let id = req.params.id;
-    if(!id || !req.body.newCost) {
-        id = null;
-        req.body.newCost = null;
-        const data = await model.insertProduct(id, req.body);
-        if(data) {
-            res.status(201)
-            .json({ message: "Product successfully added!", id: data.id });
-        } else {
-            res.status(400)
-            .json({ message: "Bad request, please try again!" });
-        };
-    }
+    console.log(req.file);
+    // let id = req.params.id;
+    // if(!id || !req.body.newCost) {
+    //     id = null;
+    //     req.body.newCost = null;
+    //     const data = await model.insertProduct(id, req.body);
+    //     if(data) {
+    //         res.status(201)
+    //         .json({ message: "Product successfully added!", id: data.id });
+    //     } else {
+    //         res.status(400)
+    //         .json({ message: "Bad request, please try again!" });
+    //     };
+    // }
 };
