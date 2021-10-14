@@ -14,7 +14,7 @@ exports.getData = async (req, res) => {
 };
 
 exports.insertData = async (req, res) => {
-    console.log(req.file);
+    console.log(req.files);
     // let id = req.params.id;
     // if(!id || !req.body.newCost) {
     //     id = null;

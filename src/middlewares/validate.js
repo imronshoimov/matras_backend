@@ -8,6 +8,7 @@ const {
 
 exports.validateCarousel = (req, res, next) => {
     const data = carouselSchema.validate(req.body);
+    console.log(req.file);
     if(req.file == undefined) {
         if(data.error) {
             res.status(403)

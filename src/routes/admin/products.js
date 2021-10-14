@@ -1,8 +1,8 @@
 const router = require("express").Router();
 const { getData, insertData } = require("../../controllers/products");
-const fileUpload = require("../../lib/multer");
+const { fileUpload } = require("../../lib/multer");
 
 router.get("/products", getData);
-router.post("/products", fileUpload("products").array(), insertData);
+router.post("/products", fileUpload.array("images", 3), insertData);
 
 module.exports = router;
