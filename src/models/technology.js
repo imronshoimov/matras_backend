@@ -2,7 +2,7 @@ const { fetch, fetchAll } = require("../lib/connectdb");
 
 const SELECT_TECHNOLOGIES = `
 SELECT * FROM technologies
-WHERE is_active = '1';
+--WHERE is_active = '1';
 `;
 
 const INSERT_TECHNOLOGY = `
@@ -20,8 +20,9 @@ UPDATE technologies
 SET name = $1,
     thumbnail = $2,
     link = $3,
-    description = $4
-WHERE id = $5
+    description = $4,
+    is_active = $5
+WHERE id = $6
 RETURNING id;
 `;
 
@@ -47,6 +48,7 @@ exports.updateTechnology = (id, data) => fetch(
     data.thumbnail, 
     data.link, 
     data.description,
+    data.isActive,
     id
 );
 exports.deleteTechnology = (id) => fetch(IS_ACTIVE, id);

@@ -6,7 +6,8 @@ const {
     ordersSchema, 
     contactSchema, 
     categorySchema,
-    productsSchema
+    productsSchema,
+    technologySchema
 } = require("../lib/joi");
 
 exports.validateCarousel = (req, res, next) => {
@@ -78,5 +79,15 @@ exports.validateProducts = (req, res, next) => {
             .json({ message: data.error.details[0].message });
     } else {
         next()
+    };
+};
+
+exports.validateTechnology = (req, res, next) => {
+    const data = technologySchema.validate(req.body);
+    if(data.error) {
+        res.status(403)
+            .json({ message: data.error.details[0].message });
+    } else {
+        next();
     };
 };

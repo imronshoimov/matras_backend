@@ -43,3 +43,10 @@ exports.productsSchema = Joi.object().keys({
     isActive: Joi.string()
 })
 
+exports.technologySchema = Joi.object().keys({
+    name: Joi.string().min(3).not(""),
+    thumbnail: Joi.string().min(3).not(""),
+    link: Joi.string().not(""),
+    description: Joi.string().min(5).not(""),
+    isActive: Joi.boolean().not("")
+});
