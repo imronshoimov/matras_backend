@@ -1,3 +1,4 @@
+const { not } = require("joi");
 const Joi = require("joi");
 
 exports.carouselSchema = Joi.object({
@@ -26,3 +27,19 @@ exports.categorySchema = Joi.object({
     category: Joi.string().not("").min(3).max(30),
     isActive: Joi.boolean().not("")
 });
+
+exports.productsSchema = Joi.object().keys({
+    name: Joi.string().required(),
+    images: Joi.string().min(3).not(""),
+    weight: Joi.number().not(""),
+    warranty: Joi.string().not(""),
+    size: Joi.string().min(3).not(""),
+    capacity: Joi.number().not(""),
+    body: Joi.string().not(""),
+    cost: Joi.number().not(""),
+    newCost:Joi.number().empty(""),
+    discount: Joi.string(),
+    new: Joi.string(),
+    isActive: Joi.string()
+})
+

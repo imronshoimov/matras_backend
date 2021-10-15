@@ -18,7 +18,6 @@ exports.getData = async (req, res) => {
 async function insertController(id, req, res, files, status) {
     if(req.body.isActive === "true") {
         const data = await model.insertProduct(id, req.body, files, status);
-        console.log("Imron");
         if(data) {
             res.status(201)
                 .json({ message: "Product successfully added!", id: data.id });
@@ -97,7 +96,6 @@ async function updateController(id, req, res, files, status) {
 
         if(data) {
             for(let image of images) {
-                console.log(image);
                 fs.unlinkSync(path.join(process.cwd(), "src", "uploads", image));
             }
 

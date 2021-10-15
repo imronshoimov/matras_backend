@@ -1,24 +1,26 @@
+const fs = require("fs");
+const path = require("path");
 const { 
     carouselSchema, 
     statisticsSchema, 
     ordersSchema, 
     contactSchema, 
-    categorySchema 
+    categorySchema,
+    productsSchema
 } = require("../lib/joi");
 
 exports.validateCarousel = (req, res, next) => {
     const data = carouselSchema.validate(req.body);
-    console.log(req.file);
-    if(req.file == undefined) {
-        if(data.error) {
-            res.status(403)
-                .json({ message: data.error.details[0].message });
-        } else {
-            res.status(403)
-                .json({ message: "image is required" });
-        }
+    if(!req.file) {
+        res.status(403)
+            .json({ message: "image is required" })
+    } else if(data.error) {
+        fs.unlinkSync(path.join(process.cwd(), "src", "uploads", req.file.filename));
+
+        res.status(403)
+            .json({ message: data.error.details[0].message });
     } else {
-        next();
+        next()
     };
 };
 
@@ -59,5 +61,22 @@ exports.validateCategory = (req, res, next) => {
             .json({ message: data.error.details[0].message });
     } else {
         next();
+    };
+};
+
+exports.validateProducts = (req, res, next) => {
+    const data = productsSchema.validate(req.body);
+    if(!req.files.length) {
+        res.status(403)
+                .json({ message: "image is required" })
+    } else if(data.error) {
+        for(let image of req.files) {
+            fs.unlinkSync(path.join(process.cwd(), "src", "uploads", image.filename));
+        }
+
+        res.status(403)
+            .json({ message: data.error.details[0].message });
+    } else {
+        next()
     };
 };
