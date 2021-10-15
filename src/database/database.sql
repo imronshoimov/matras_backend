@@ -35,7 +35,7 @@ CREATE TABLE products(
     id serial primary key,
     category_id int null references categories(id),
     name varchar(50) not null, 
-    product_images text [],
+    product_images text not null,
     weight smallint not null,
     warranty smallint not null,
     size varchar(60) not null,

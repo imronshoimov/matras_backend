@@ -39,28 +39,31 @@ async function insertController(id, req, res, files, status) {
 };
 
 exports.insertData = async (req, res) => {
-    let files = [];
-    req.files.forEach(element => files.push(element.filename));
-    JSON.stringify(files)
-    console.log(JSON.parse(files));
-    res.send("ok")
-    // let id = req.params.id;
-    // id = id > 0 ? id : null;
+    try {
+        let files = [];
+        req.files.forEach(element => files.push(element.filename));
+        files = JSON.stringify(files)
 
-    // const data = req.body;
-    // let status = '';
+        let id = req.params.id;
+        id = id > 0 ? id : null;
 
-    // if(data.new == "false" && data.discount == "false") {
-    //     status = '0'
-    //     insertController(id, req, res, files, status);
-    // } else if(data.new == "true" && data.discount == "false") {
-    //     status = '1'
-    //     insertController(id, req, res, files, status);
-    // } else if(data.new == "false" && data.discount == "true") {
-    //     status = '2'
-    //     insertController(id, req, res, files, status);
-    // } else if(data.new == "true" && data.discount == "true") {
-    //     status = '3'
-    //     insertController(id, req, res, files, status);
-    // };
+        const data = req.body;
+        let status = '';
+
+        if(data.new == "false" && data.discount == "false") {
+            status = '0'
+            insertController(id, req, res, files, status);
+        } else if(data.new == "true" && data.discount == "false") {
+            status = '1'
+            insertController(id, req, res, files, status);
+        } else if(data.new == "false" && data.discount == "true") {
+            status = '2'
+            insertController(id, req, res, files, status);
+        } else if(data.new == "true" && data.discount == "true") {
+            status = '3'
+            insertController(id, req, res, files, status);
+        };
+    } catch(error) {
+        console.log(error);
+    };
 };
