@@ -3,6 +3,6 @@ const { getData, insertData } = require("../../controllers/products");
 const { fileUpload } = require("../../lib/multer");
 
 router.get("/products", getData);
-router.post("/products", fileUpload.array("images", 3), insertData);
+router.post("/products/:id", fileUpload.array("images", 3), insertData);
 
 module.exports = router;

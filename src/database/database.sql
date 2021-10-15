@@ -43,7 +43,7 @@ CREATE TABLE products(
     body text not null,
     cost bigint not null,
     new_cost bigint null, 
-    status boolean not null,
+    status type not null,
     is_active active_type default '1'
 );
 

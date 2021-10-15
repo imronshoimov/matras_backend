@@ -4,6 +4,12 @@ const SELECT_PRODUCTS = `
 SELECT * FROM products;
 `;
 
+const UPDATE_AVCTIVE = `
+UPDATE products
+SET is_active = '0'
+WHERE id = $1;
+`;
+
 const INSERT_PRODUCTS = `
 INSERT INTO products (
     category_id,
@@ -15,10 +21,25 @@ INSERT INTO products (
     capacity,
     body,
     cost,
+    new_cost,
     status
-) VALUES ( $1, $2, $3, $4, $5, $6, $7, $8, $9, $10 );
+) VALUES ( $1, $2, ARRAY[$3], $4, $5, $6, $7, $8, $9, $10, $11 )
 RETURNING id;
 `;
 
 exports.getProducts = () => fetchAll(SELECT_PRODUCTS);
-exports.insertProduct = (data) => fetch(INSERT_PRODUCTS);
+exports.updateIsActive = (id) => fetch(UPDATE_AVCTIVE, id);
+exports.insertProduct = (id, data, files, status) => fetch(
+    INSERT_PRODUCTS, 
+    id, 
+    data.name,
+    files,
+    data.weigth,
+    data.warranty,
+    data.size,
+    data.capacity,
+    data.body,
+    data.cost,
+    data.newCost,
+    status
+);
