@@ -7,7 +7,8 @@ SELECT * FROM products;
 const UPDATE_ISACTIVE = `
 UPDATE products
 SET is_active = '0'
-WHERE id = $1;
+WHERE id = $1
+RETURNING id;
 `;
 
 const INSERT_PRODUCTS = `
@@ -81,3 +82,4 @@ exports.updateProducts = (id, data, files, status) => fetch(
     status,
     id
 );
+exports.deleteProducts = (id) => fetch(UPDATE_ISACTIVE, id);

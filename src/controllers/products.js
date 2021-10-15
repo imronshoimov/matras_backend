@@ -16,9 +16,9 @@ exports.getData = async (req, res) => {
 };
 
 async function insertController(id, req, res, files, status) {
-    if(req.body.isActive == "true") {
+    if(req.body.isActive === "true") {
         const data = await model.insertProduct(id, req.body, files, status);
-
+        console.log("Imron");
         if(data) {
             res.status(201)
                 .json({ message: "Product successfully added!", id: data.id });
@@ -74,7 +74,7 @@ exports.insertData = async (req, res) => {
 };
 
 async function updateController(id, req, res, files, status) {
-    if(req.body.isActive == "true") {
+    if(req.body.isActive === "true") {
         const data = await model.updateProducts(id, req.body, files, status);
         let images = await model.selectImages(data.id);
         images = JSON.parse(images.product_images);
@@ -139,5 +139,24 @@ exports.updateData = async (req, res) => {
         };
     } catch(error) {
         console.log(error);
+    };
+};
+
+exports.deleteData = async (req, res) => {
+    const data = await model.deleteProducts(req.params.id);
+    let images = await model.selectImages(data.id);
+    images = JSON.parse(images.product_images);
+
+    if(data) {
+        for(let image of images) {
+            console.log(image);
+            fs.unlinkSync(path.join(process.cwd(), "src", "uploads", image));
+        }
+
+        res.status(200) 
+            .json({ message: "Successfully deleted!", id: data.id });
+    } else {
+        res.status(400) 
+            .json({ message: "Bad request, please try again!", id: data.id });
     };
 };
