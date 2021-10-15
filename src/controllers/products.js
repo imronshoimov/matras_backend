@@ -13,7 +13,7 @@ exports.getData = async (req, res) => {
     };
 };
 
-async function insertController(id, req, res, files, status) {
+async function productController(id, req, res, files, status) {
     if(req.body.isActive == "true") {
         const data = await model.insertProduct(id, req.body, files, status);
 
@@ -52,18 +52,22 @@ exports.insertData = async (req, res) => {
 
         if(data.new == "false" && data.discount == "false") {
             status = '0'
-            insertController(id, req, res, files, status);
+            productController(id, req, res, files, status);
         } else if(data.new == "true" && data.discount == "false") {
             status = '1'
-            insertController(id, req, res, files, status);
+            productController(id, req, res, files, status);
         } else if(data.new == "false" && data.discount == "true") {
             status = '2'
-            insertController(id, req, res, files, status);
+            productController(id, req, res, files, status);
         } else if(data.new == "true" && data.discount == "true") {
             status = '3'
-            insertController(id, req, res, files, status);
+            productController(id, req, res, files, status);
         };
     } catch(error) {
         console.log(error);
     };
+};
+
+exports.updateData = (req, res) => {
+
 };
