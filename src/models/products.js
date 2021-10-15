@@ -4,7 +4,7 @@ const SELECT_PRODUCTS = `
 SELECT * FROM products;
 `;
 
-const UPDATE_AVCTIVE = `
+const UPDATE_ISACTIVE = `
 UPDATE products
 SET is_active = '0'
 WHERE id = $1;
@@ -27,8 +27,31 @@ INSERT INTO products (
 RETURNING id;
 `;
 
+const SELECT_IMAGES = `
+SELECT 
+    product_images
+FROM products
+WHERE id = $1;
+`;
+
+const UPDATE_PRODUCTS = `
+UPDATE products
+SET name = $1,
+    product_images = $2,
+    weight = $3,
+    warranty = $4,
+    size = $5,
+    capacity = $6,
+    body = $7,
+    cost = $8,
+    new_cost = $9,
+    status = $10
+WHERE id = $11
+RETURNING id;
+`;
+
 exports.getProducts = () => fetchAll(SELECT_PRODUCTS);
-exports.updateIsActive = (id) => fetch(UPDATE_AVCTIVE, id);
+exports.updateIsActive = (id) => fetch(UPDATE_ISACTIVE, id);
 exports.insertProduct = (id, data, files, status) => fetch(
     INSERT_PRODUCTS, 
     id, 
@@ -42,4 +65,19 @@ exports.insertProduct = (id, data, files, status) => fetch(
     data.cost,
     data.newCost,
     status
+);
+exports.selectImages = (id) => fetch(SELECT_IMAGES, id);
+exports.updateProducts = (id, data, files, status) => fetch(
+    UPDATE_PRODUCTS, 
+    data.name,
+    files,
+    data.weigth,
+    data.warranty,
+    data.size,
+    data.capacity,
+    data.body,
+    data.cost,
+    data.newCost,
+    status,
+    id
 );

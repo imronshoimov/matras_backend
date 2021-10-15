@@ -1,5 +1,7 @@
 const model = require("../models/products");
 const category = require("../models/category");
+const fs = require("fs");
+const path = require("path");
 
 exports.getData = async (req, res) => {
     const products = await model.getProducts();
@@ -13,7 +15,7 @@ exports.getData = async (req, res) => {
     };
 };
 
-async function productController(id, req, res, files, status) {
+async function insertController(id, req, res, files, status) {
     if(req.body.isActive == "true") {
         const data = await model.insertProduct(id, req.body, files, status);
 
@@ -26,6 +28,7 @@ async function productController(id, req, res, files, status) {
         };
     } else {
         const data = await model.insertProduct(id, req.body, files, status);
+        console.log(data);
         await model.updateIsActive(data.id);
 
         if(data) {
@@ -42,7 +45,7 @@ exports.insertData = async (req, res) => {
     try {
         let files = [];
         req.files.forEach(element => files.push(element.filename));
-        files = JSON.stringify(files)
+        files = JSON.stringify(files);
 
         let id = req.params.id;
         id = id > 0 ? id : null;
@@ -51,23 +54,90 @@ exports.insertData = async (req, res) => {
         let status = '';
 
         if(data.new == "false" && data.discount == "false") {
-            status = '0'
-            productController(id, req, res, files, status);
+            status = '0';
+            data.newCost = null;
+            insertController(id, req, res, files, status);
         } else if(data.new == "true" && data.discount == "false") {
-            status = '1'
-            productController(id, req, res, files, status);
+            status = '1';
+            data.newCost = null;
+            insertController(id, req, res, files, status);
         } else if(data.new == "false" && data.discount == "true") {
             status = '2'
-            productController(id, req, res, files, status);
+            insertController(id, req, res, files, status);
         } else if(data.new == "true" && data.discount == "true") {
             status = '3'
-            productController(id, req, res, files, status);
+            insertController(id, req, res, files, status);
         };
     } catch(error) {
         console.log(error);
     };
 };
 
-exports.updateData = (req, res) => {
+async function updateController(id, req, res, files, status) {
+    if(req.body.isActive == "true") {
+        const data = await model.updateProducts(id, req.body, files, status);
+        let images = await model.selectImages(data.id);
+        images = JSON.parse(images.product_images);
 
+        if(data) {
+            for(let image of images) {
+                console.log(image);
+                fs.unlinkSync(path.join(process.cwd(), "src", "uploads", image));
+            }
+
+            res.status(202)
+                .json({ message: "Product successfully updated!", id: data.id });
+        } else {
+            res.status(204)
+                .json({ message: "There is an error, please try again!" });
+        };
+    } else {
+        const data = await model.updateProducts(id, req.body, files, status);
+        await model.updateIsActive(data.id);
+
+        if(data) {
+            for(let image of images) {
+                console.log(image);
+                fs.unlinkSync(path.join(process.cwd(), "src", "uploads", image));
+            }
+
+            res.status(202)
+                .json({ message: "Product successfully updated!", id: data.id });
+        } else {
+            res.status(204)
+                .json({ message: "There is an error, please try again!" });
+        };
+    };
+};
+
+exports.updateData = async (req, res) => {
+    try {
+        let files = [];
+        req.files.forEach(element => files.push(element.filename));
+        files = JSON.stringify(files);
+
+        let id = req.params.id;
+        id = id > 0 ? id : null;
+
+        const data = req.body;
+        let status = '';
+
+        if(data.new == "false" && data.discount == "false") {
+            status = '0';
+            data.newCost = null;
+            updateController(id, req, res, files, status);
+        } else if(data.new == "true" && data.discount == "false") {
+            status = '1';
+            data.newCost = null;
+            updateController(id, req, res, files, status);
+        } else if(data.new == "false" && data.discount == "true") {
+            status = '2'
+            updateController(id, req, res, files, status);
+        } else if(data.new == "true" && data.discount == "true") {
+            status = '3'
+            updateController(id, req, res, files, status);
+        };
+    } catch(error) {
+        console.log(error);
+    };
 };
