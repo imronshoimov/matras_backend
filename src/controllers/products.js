@@ -27,7 +27,6 @@ async function insertController(id, req, res, files, status) {
         };
     } else {
         const data = await model.insertProduct(id, req.body, files, status);
-        console.log(data);
         await model.updateIsActive(data.id);
 
         if(data) {
@@ -73,16 +72,16 @@ exports.insertData = async (req, res) => {
 };
 
 async function updateController(id, req, res, files, status) {
+    let images = await model.selectImages(req.params.id);
+    images = JSON.parse(images.product_images);
+
     if(req.body.isActive === "true") {
         const data = await model.updateProducts(id, req.body, files, status);
-        let images = await model.selectImages(data.id);
-        images = JSON.parse(images.product_images);
 
         if(data) {
             for(let image of images) {
-                console.log(image);
                 fs.unlinkSync(path.join(process.cwd(), "src", "uploads", image));
-            }
+            };
 
             res.status(202)
                 .json({ message: "Product successfully updated!", id: data.id });
@@ -97,7 +96,7 @@ async function updateController(id, req, res, files, status) {
         if(data) {
             for(let image of images) {
                 fs.unlinkSync(path.join(process.cwd(), "src", "uploads", image));
-            }
+            };
 
             res.status(202)
                 .json({ message: "Product successfully updated!", id: data.id });
@@ -147,9 +146,8 @@ exports.deleteData = async (req, res) => {
 
     if(data) {
         for(let image of images) {
-            console.log(image);
             fs.unlinkSync(path.join(process.cwd(), "src", "uploads", image));
-        }
+        };
 
         res.status(200) 
             .json({ message: "Successfully deleted!", id: data.id });

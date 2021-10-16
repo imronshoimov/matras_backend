@@ -97,7 +97,7 @@ exports.validateAddress = (req, res, next) => {
     const data = addressSchema.validate(req.body);
     if(!req.files.length) {
         res.status(403)
-                .json({ message: "images are required" })
+                .json({ message: "images are required" });
     } else if(data.error) {
         for(let image of req.files) {
             fs.unlinkSync(path.join(process.cwd(), "src", "uploads", image.filename));

@@ -33,22 +33,30 @@ WHERE id = $1
 RETURNING id;
 `;
 
+const SELECT_IMAGE = `
+SELECT 
+    images
+FROM address
+WHERE id = $1;
+`;
+
 exports.getAddress = () => fetchAll(SELECT_ADDRESS);
 exports.insertAddress = (data, files) => fetch(
     INSERT_ADDRESS,
     data.location,
     data.destination,
-    data.geolacation,
+    data.geolocation,
     files,
-    isActive
+    data.isActive
 );
+exports.selectImages = (id) => fetch(SELECT_IMAGE, id);
 exports.updateAddress = (id, data, files) => fetch(
     UPDATE_ADDRESS,
     data.location,
     data.destination,
-    data.geolacation,
+    data.geolocation,
     files,
-    isActive,
+    data.isActive,
     id
 );
 exports.deleteAddress = (id) => fetch(DELETE_ADDRESS, id);

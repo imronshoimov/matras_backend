@@ -1,4 +1,6 @@
 const model = require("../models/address");
+const fs = require("fs");
+const path = require("path");
 
 exports.getData = async (req, res) => {
     const data = await model.getAddress();
@@ -40,6 +42,10 @@ exports.insertData = async (req, res) => {
 };
 
 exports.updateData = async (req, res) => {
+    let images = await model.selectImages(req.params.id);
+    images = JSON.parse(images.images);
+
+
     let files = [];
     req.files.forEach(element => files.push(element.filename));
     files = JSON.stringify(files);
@@ -48,6 +54,10 @@ exports.updateData = async (req, res) => {
         req.body.isActive = '1';
         const data = await model.updateAddress(req.params.id, req.body, files);
         if(data) {
+            for(let image of images) {
+                fs.unlinkSync(path.join(process.cwd(), "src", "uploads", image));
+            };
+
             res.status(200)
                 .json({ message: "Successfully updated!", id: data.id });
         } else {
@@ -57,7 +67,12 @@ exports.updateData = async (req, res) => {
     } else if(req.body.isActive == "false") {
         req.body.isActive = '0';
         const data = await model.updateAddress(req.params.id, req.body, files);
+
         if(data) {
+            for(let image of images) {
+                fs.unlinkSync(path.join(process.cwd(), "src", "uploads", image));
+            };
+
             res.status(200)
                 .json({ message: "Successfully updated!", id: data.id });
         } else {
@@ -69,7 +84,14 @@ exports.updateData = async (req, res) => {
 
 exports.deleteData = async (req, res) => {
     const data = await model.deleteAddress(req.params.id);
+    let images = await model.selectImages(data.id);
+    images = JSON.parse(images.images);
+
     if(data) {
+        for(let image of images) {
+            fs.unlinkSync(path.join(process.cwd(), "src", "uploads", image));
+        };
+
         res.status(200) 
             .json({ message: "Successfully deleted!", id: data.id });
     } else {

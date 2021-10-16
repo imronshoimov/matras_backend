@@ -5,6 +5,7 @@ const contactRouter = require("./contact");
 const categoryRouter = require("./category");
 const productRouter = require("./products");
 const technologyRouter = require("./technology");
+const addressRouter = require("./address");
 
 module.exports = [
     carouselRouter,
@@ -13,5 +14,6 @@ module.exports = [
     contactRouter,
     categoryRouter,
     productRouter,
-    technologyRouter
+    technologyRouter,
+    addressRouter
 ]
