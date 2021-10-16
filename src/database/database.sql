@@ -66,6 +66,7 @@ CREATE TABLE technologies(
 );
 
 CREATE TABLE address(
+    id serial primary key,
     location varchar(200) not null,
     destination varchar(200) not null,
     geolacation varchar(150) not null,
