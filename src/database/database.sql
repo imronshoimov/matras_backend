@@ -70,8 +70,8 @@ CREATE TABLE address(
     location varchar(200) not null,
     destination varchar(200) not null,
     geolacation varchar(150) not null,
-    images text [],
-    is_active type default '1'
+    images text not null,
+    is_active type default '0'
 );
 
 CREATE TABLE contact(
