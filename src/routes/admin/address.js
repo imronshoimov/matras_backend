@@ -4,7 +4,7 @@ const { fileUpload } = require("../../lib/multer");
 
 router.get("/address", getData);
 router.post("/address", fileUpload.array("images", 3), insertData);
-router.put("/address", fileUpload.array("images", 3), updateData);
-router.patch("/address", deleteData);
+router.put("/address/:id", fileUpload.array("images", 3), updateData);
+router.patch("/address/:id", deleteData);
 
 module.exports = router;
