@@ -50,3 +50,11 @@ exports.technologySchema = Joi.object().keys({
     description: Joi.string().min(5).not(""),
     isActive: Joi.boolean().not("")
 });
+
+exports.addressSchema = Joi.object().keys({
+    location: Joi.string().min(3).not(""),
+    destination: Joi.string().min(3).not(""),
+    geolacation: Joi.string().min(3).not(""),
+    images: Joi.string().min(3).not(""),
+    is_active: Joi.string()
+});

@@ -7,7 +7,8 @@ const {
     contactSchema, 
     categorySchema,
     productsSchema,
-    technologySchema
+    technologySchema,
+    addressSchema
 } = require("../lib/joi");
 
 exports.validateCarousel = (req, res, next) => {
@@ -69,7 +70,7 @@ exports.validateProducts = (req, res, next) => {
     const data = productsSchema.validate(req.body);
     if(!req.files.length) {
         res.status(403)
-                .json({ message: "image is required" })
+                .json({ message: "images are required" })
     } else if(data.error) {
         for(let image of req.files) {
             fs.unlinkSync(path.join(process.cwd(), "src", "uploads", image.filename));
@@ -89,5 +90,22 @@ exports.validateTechnology = (req, res, next) => {
             .json({ message: data.error.details[0].message });
     } else {
         next();
+    };
+};
+
+exports.validateAddress = (req, res, next) => {
+    const data = addressSchema.validate(req.body);
+    if(!req.files.length) {
+        res.status(403)
+                .json({ message: "images are required" })
+    } else if(data.error) {
+        for(let image of req.files) {
+            fs.unlinkSync(path.join(process.cwd(), "src", "uploads", image.filename));
+        }
+
+        res.status(403)
+            .json({ message: data.error.details[0].message });
+    } else {
+        next()
     };
 };
