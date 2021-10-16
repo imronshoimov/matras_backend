@@ -17,7 +17,7 @@ exports.validateCarousel = (req, res, next) => {
         res.status(403)
             .json({ message: "image is required" })
     } else if(data.error) {
-        fs.unlinkSync(path.join(process.cwd(), "src", "uploads", req.file.filename));
+        fs.unlinkSync(path.join(process.cwd(), "src", "uploads", "carousel", req.file.filename));
 
         res.status(403)
             .json({ message: data.error.details[0].message });

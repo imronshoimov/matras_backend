@@ -35,7 +35,7 @@ exports.updateData = async (req, res) => {
     const fileName = await model.selectImage(req.params.id);
     fs.unlinkSync(path.join(process.cwd(), "src", "uploads", "carousel", fileName.image));
 
-    const data = await model.updateCarousel(req.params.id, req.body);
+    const data = await model.updateCarousel(req.params.id, req.body.title, req.file.filename);
     if(data) {
         res.status(200)
             .json({ message: "The carousel successfully updated!", id: data.id });
@@ -46,7 +46,7 @@ exports.updateData = async (req, res) => {
 };
 
 exports.deleteData = async (req, res) => {
-    const data = await model.updateCarousel(req.params.id);
+    const data = await model.deleteCarousel(req.params.id);
     if(data) {
         res.status(200)
             .json({ message: "The carousel successfully deleted!", id: data.id });
