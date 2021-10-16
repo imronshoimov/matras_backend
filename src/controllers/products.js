@@ -80,7 +80,7 @@ async function updateController(id, req, res, files, status) {
 
         if(data) {
             for(let image of images) {
-                fs.unlinkSync(path.join(process.cwd(), "src", "uploads", image));
+                fs.unlinkSync(path.join(process.cwd(), "src", "uploads", "products", image));
             };
 
             res.status(202)
@@ -95,7 +95,7 @@ async function updateController(id, req, res, files, status) {
 
         if(data) {
             for(let image of images) {
-                fs.unlinkSync(path.join(process.cwd(), "src", "uploads", image));
+                fs.unlinkSync(path.join(process.cwd(), "src", "uploads", "products", image));
             };
 
             res.status(202)
@@ -146,7 +146,7 @@ exports.deleteData = async (req, res) => {
 
     if(data) {
         for(let image of images) {
-            fs.unlinkSync(path.join(process.cwd(), "src", "uploads", image));
+            fs.unlinkSync(path.join(process.cwd(), "src", "uploads", "products", image));
         };
 
         res.status(200) 

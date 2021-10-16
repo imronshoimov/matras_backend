@@ -7,7 +7,7 @@ const fileUpload = (folderName) => {
             cb(null, path.join(process.cwd(), "src", "uploads", folderName));
         },
         filename: function(req, file, cb) {
-            cb(null, file.originalname.split(" ").join("_"));
+            cb(null, file.originalname.split(" ").join("_") + "_" + new Date());
         }
     })
     return multer({ 

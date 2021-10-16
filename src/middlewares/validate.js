@@ -73,7 +73,7 @@ exports.validateProducts = (req, res, next) => {
                 .json({ message: "images are required" })
     } else if(data.error) {
         for(let image of req.files) {
-            fs.unlinkSync(path.join(process.cwd(), "src", "uploads", image.filename));
+            fs.unlinkSync(path.join(process.cwd(), "src", "uploads", "products", image.filename));
         }
 
         res.status(403)
