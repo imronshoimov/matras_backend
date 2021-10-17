@@ -1,8 +1,14 @@
 const { fetch, fetchAll } = require("../lib/connectdb");
 
 const SELECT_TECHNOLOGIES = `
-SELECT * FROM technologies
---WHERE is_active = '1';
+SELECT 
+    id,
+    name,
+    thumbnail,
+    link,
+    description 
+FROM technologies
+WHERE is_active = '1';
 `;
 
 const INSERT_TECHNOLOGY = `
