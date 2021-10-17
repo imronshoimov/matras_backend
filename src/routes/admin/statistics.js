@@ -3,8 +3,8 @@ const { getData, insertData, updateData, deleteData } = require("../../controlle
 const { validateStatistics } = require("../../middlewares/validate");
 
 router.get("/statistics", getData);
-router.post("/statistics", validateStatistics, insertData);
+// router.post("/statistics", validateStatistics, insertData);
 router.put("/statistics", validateStatistics, updateData);
-router.patch("/statistics", deleteData);
+// router.patch("/statistics", deleteData);
 
 module.exports = router;
