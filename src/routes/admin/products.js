@@ -4,7 +4,7 @@ const fileUpload = require("../../lib/multer");
 const { validateProducts } = require("../../middlewares/validate");
 
 router.get("/products", getData);
-router.post("/products", fileUpload("products").array("images", 12), validateProducts, insertData);
+router.post("/products/:id", fileUpload("products").array("images", 12), validateProducts, insertData);
 router.put("/products/:id", fileUpload("products").array("images", 12), validateProducts, updateData);
 router.patch("/products/:id", deleteData);
 
