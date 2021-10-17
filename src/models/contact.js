@@ -7,7 +7,8 @@ SELECT
     TO_CHAR(time, 'yyyy-MM-dd HH24:MI:SS') as time,
     contacted
 FROM contact
-WHERE is_active = '1';
+WHERE is_active = '1'
+ORDER BY contacted DESC;
 `
 
 const INSERT_CONTACT = `
