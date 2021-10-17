@@ -1,7 +1,8 @@
 const { fetch, fetchAll } = require("../lib/connectdb");
 
 const SELECT_PRODUCTS = `
-SELECT * FROM products;
+SELECT * FROM products
+WHERE is_active = '1';
 `;
 
 const UPDATE_ISACTIVE = `

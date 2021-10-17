@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { getData, insertData } = require("../../controllers/carousel");
+const { getData } = require("../../controllers/carousel");
 
 router.get("/carousel", getData);
 

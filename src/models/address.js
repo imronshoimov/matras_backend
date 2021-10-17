@@ -1,7 +1,14 @@
 const { fetch, fetchAll } = require("../lib/connectdb");
 
 const SELECT_ADDRESS = `
-SELECT * FROM address;
+SELECT 
+    id,
+    location,
+    destination,
+    geolacation,
+    images
+FROM address
+WHERE is_active = '1';
 `;
 
 const INSERT_ADDRESS = `
