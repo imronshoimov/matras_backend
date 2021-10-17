@@ -55,7 +55,7 @@ exports.updateData = async (req, res) => {
         const data = await model.updateAddress(req.params.id, req.body, files);
         if(data) {
             for(let image of images) {
-                fs.unlinkSync(path.join(process.cwd(), "src", "uploads", image));
+                fs.unlinkSync(path.join(process.cwd(), "src", "uploads", "address", image));
             };
 
             res.status(200)
@@ -70,7 +70,7 @@ exports.updateData = async (req, res) => {
 
         if(data) {
             for(let image of images) {
-                fs.unlinkSync(path.join(process.cwd(), "src", "uploads", image));
+                fs.unlinkSync(path.join(process.cwd(), "src", "uploads", "address", image));
             };
 
             res.status(200)
@@ -89,7 +89,7 @@ exports.deleteData = async (req, res) => {
 
     if(data) {
         for(let image of images) {
-            fs.unlinkSync(path.join(process.cwd(), "src", "uploads", image));
+            fs.unlinkSync(path.join(process.cwd(), "src", "uploads", "address", image));
         };
 
         res.status(200) 
