@@ -1,6 +1,7 @@
 const  { fetch, fetchAll } = require("../lib/connectdb");
 
-const SELECT_CATEGORY = `SELECT 
+const SELECT_CATEGORY = `
+SELECT 
     id,
     category,
     TO_CHAR(time, 'yyyy-MM-dd HH24:MI:SS') as time,
