@@ -2,6 +2,7 @@ const { fetch, fetchAll } = require("../lib/connectdb");
 
 const SELECT_ORDERS = `
 SELECT 
+    id,
     name,
     '+998' || number as number,
     product_name,
