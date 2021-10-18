@@ -6,6 +6,7 @@ const categoryRouter = require("./category");
 const productRouter = require("./products");
 const technologyRouter = require("./technology");
 const addressRouter = require("./address");
+const loginRouter = require("./login");
 
 module.exports = [
     carouselRouter,
@@ -15,5 +16,6 @@ module.exports = [
     categoryRouter,
     productRouter,
     technologyRouter,
-    addressRouter
-]
+    addressRouter,
+    loginRouter
+];

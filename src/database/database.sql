@@ -9,6 +9,17 @@
 CREATE TYPE type AS ENUM ('0', '1', '2', '3');
 CREATE TYPE active_type AS ENUM ('0', '1');
 
+CREATE TABLE users(
+    id serial primary key,
+    username varchar(100) not null,
+    password varchar(200) not null
+);
+
+INSERT INTO user (
+    username,
+    password
+) VALUES ( 'admin', crypt('admin', gen_salt('bf')) );
+
 CREATE TABLE carousel(
     id serial primary key,
     title varchar(60) not null,
