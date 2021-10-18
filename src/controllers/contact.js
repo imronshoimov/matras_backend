@@ -1,10 +1,20 @@
 const model = require("../models/contact");
+const { pageLimit } = require("../config/keys");
 
 exports.getData = async (req, res) => {
-    const data = await model.getContacts(req.body);
+    let { count } = await model.getCount();
+    count = Math.round(count / pageLimit);
+
+    if(req.params.page == 0 || req.params.page > count) {
+        res.status(400)
+            .json({ message: "Bad request" })
+    }
+
+    let page = (req.params.page - 1) * pageLimit;
+    const data = await model.getContacts(pageLimit, page);
     if(data) {
         res.status(200)
-            .send(data);
+            .send({ data, count });
     } else {
         res.status(401)
             .json({ message: "There is an error, please try again!" });

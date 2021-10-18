@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const { getData, contactedData, deleteData } = require("../../controllers/contact");
 
-router.get("/contact", getData);
+router.get("/contact/:page", getData);
 router.patch("/contact/:id", contactedData);
 router.patch("/contact/:id", deleteData);
 

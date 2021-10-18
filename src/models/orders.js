@@ -1,5 +1,12 @@
 const { fetch, fetchAll } = require("../lib/connectdb");
 
+const GET_COUNT = `
+SELECT 
+    COUNT(id) as count
+FROM orders
+WHERE is_active = '1';
+`;
+
 const SELECT_ORDERS = `
 SELECT 
     id,
@@ -8,7 +15,8 @@ SELECT
     product_name,
     count
 FROM orders
-WHERE is_active = '1';
+WHERE is_active = '1'
+LIMIT $1 OFFSET $2;
 `;
 
 const INSERT_ORDERS = `
@@ -28,7 +36,8 @@ WHERE id = $1
 RETURNING id;
 `
 
-exports.getOrders = () => fetchAll(SELECT_ORDERS);
+exports.getCount = () => fetch(GET_COUNT);
+exports.getOrders = (limit, page) => fetchAll(SELECT_ORDERS, limit, page);
 exports.insertOrders = (data) => fetch(
     INSERT_ORDERS, 
     data.name,
