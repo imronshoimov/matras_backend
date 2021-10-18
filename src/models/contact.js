@@ -40,8 +40,20 @@ WHERE id = $1
 RETURNING id;
 `
 
+const SEARCH_CONTACT = `
+SELECT 
+    id,
+    '+998' || number as number, 
+    TO_CHAR(time, 'yyyy-MM-dd HH24:MI:SS') as time,
+    contacted
+FROM contact
+WHERE is_active = '1' AND
+number ILIKE '%' || $1 || '%';
+`;
+
 exports.getCount = () => fetch(GET_COUNT);
 exports.getContacts = (limit, page) => fetchAll(SELECT_CONTACT, limit, page);
 exports.insertContact = ({ number }) => fetch(INSERT_CONTACT, number);
 exports.contacted = (id) => fetch(CONTACTED, id);
 exports.deleteContact = (id) => fetch(DELETE_CONTACT, id);
+exports.searchContact = (data) => fetch(SEARCH_CONTACT, data);

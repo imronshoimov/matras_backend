@@ -42,3 +42,14 @@ exports.updateData = async (req, res) => {
             .json({ message: "There is an error, please try again!" });
     };
 };
+
+exports.searchData = async (req, res) => {
+    const found = await model.searchOrder(req.query.search);
+    if(found) {
+        res.status(302)
+            .json(found)
+    } else {
+        res.status(404)
+            .json({ message: "Not Found, please try again!" })
+    };
+};

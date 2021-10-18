@@ -34,7 +34,19 @@ UPDATE orders
 SET is_active = '0'
 WHERE id = $1
 RETURNING id;
-`
+`;
+
+const SEARCH_ORDER = `
+SELECT 
+    id,
+    name,
+    '+998' || number as number,
+    product_name,
+    count
+FROM orders
+WHERE is_active = '1' AND
+name ILIKE '%' || $1 || '%' OR number ILIKE '%' || $1 || '%';
+`;
 
 exports.getCount = () => fetch(GET_COUNT);
 exports.getOrders = (limit, page) => fetchAll(SELECT_ORDERS, limit, page);
@@ -46,3 +58,4 @@ exports.insertOrders = (data) => fetch(
     data.count
 );
 exports.updateOrders = (id) => fetch(UPDATE_ORDERS, id);
+exports.searchOrder = (data) => fetch(SEARCH_ORDER, data);

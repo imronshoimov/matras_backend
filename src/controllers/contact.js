@@ -53,3 +53,14 @@ exports.deleteData = async (req, res) => {
             .json({ message: "Error, please try again!" });
     };
 };
+
+exports.searchData = async (req, res) => {
+    const found = await model.searchContact(req.query.search);
+    if(found) {
+        res.status(302)
+            .json(found)
+    } else {
+        res.status(404)
+            .json({ message: "Not Found, please try again!" })
+    };
+};
