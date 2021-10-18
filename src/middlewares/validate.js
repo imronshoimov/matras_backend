@@ -109,3 +109,13 @@ exports.validateAddress = (req, res, next) => {
         next()
     };
 };
+
+exports.validateLogin = (req, res, next) => {
+    const data = loginSchema.validate(req.body);
+    if(data.error) {
+        res.status(403)
+        .json({ message: data.error.details[0].message });
+    } else {
+        next();
+    };
+};

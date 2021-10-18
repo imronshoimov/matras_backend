@@ -7,7 +7,7 @@ exports.checkToken = async (req, res, next) => {
     
     if(!token) {
         res.status(401)
-            .json({ message: "You are not logged in!" });
+            .json({ message: "You are not logged in, please try again!" });
     } else {
         try {
             const payload = verify(token, secretKey);
@@ -16,11 +16,11 @@ exports.checkToken = async (req, res, next) => {
                 next();
             } else {
                 res.status(401)
-                    .json({ message: "You are not logged in!" });
+                    .json({ message: "You are not logged in, please try again!" });
             }
         } catch(error) {
             res.status(401)
-                .json({ message: "You are not logged in!" });
+                .json({ message: "Invalid token. Please, log in again!" });
             throw error;
         };
     };
