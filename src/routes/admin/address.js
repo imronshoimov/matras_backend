@@ -5,8 +5,8 @@ const { validateAddress } = require("../../middlewares/validate");
 const { checkToken } = require("../../middlewares/checkToken");
  
 router.get("/address", checkToken, getData);
-router.post("/address", checkToken, fileUpload("address").array("images", 3), validateAddress, insertData);
-router.put("/address/:id", checkToken, fileUpload("address").array("images", 3), validateAddress, updateData);
+router.post("/address", checkToken, fileUpload("address").array("images", 4), validateAddress, insertData);
+router.put("/address/:id", checkToken, fileUpload("address").array("images", 4), validateAddress, updateData);
 router.patch("/address/:id", checkToken, deleteData);
 
 module.exports = router;

@@ -15,11 +15,6 @@ CREATE TABLE users(
     password varchar(200) not null
 );
 
-INSERT INTO user (
-    username,
-    password
-) VALUES ( 'admin', crypt('admin', gen_salt('bf')) );
-
 CREATE TABLE carousel(
     id serial primary key,
     title varchar(60) not null,
@@ -44,8 +39,8 @@ CREATE TABLE categories(
 
 CREATE TABLE products(
     id serial primary key,
-    category_id int null references categories(id),
     name varchar(50) not null, 
+    category varchar(60) not null,
     product_images text not null,
     weight int not null,
     warranty int not null,

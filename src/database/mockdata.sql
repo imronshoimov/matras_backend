@@ -25,3 +25,8 @@ INSERT INTO orders (
     count
 ) VALUES 
 ('Imron Shoimov', '973332332', 'Ortopedik Eko matras', 4);
+
+INSERT INTO user (
+    username,
+    password
+) VALUES ( 'admin', crypt('admin', gen_salt('bf')) );

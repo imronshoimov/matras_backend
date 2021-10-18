@@ -8,7 +8,8 @@ const {
     categorySchema,
     productsSchema,
     technologySchema,
-    addressSchema
+    addressSchema,
+    loginSchema
 } = require("../lib/joi");
 
 exports.validateCarousel = (req, res, next) => {

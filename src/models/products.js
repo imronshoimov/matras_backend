@@ -14,8 +14,8 @@ RETURNING id;
 
 const INSERT_PRODUCTS = `
 INSERT INTO products (
-    category_id,
     name,
+    category,
     product_images,
     weight,
     warranty,
@@ -54,10 +54,10 @@ RETURNING id;
 
 exports.getProducts = () => fetchAll(SELECT_PRODUCTS);
 exports.updateIsActive = (id) => fetch(UPDATE_ISACTIVE, id);
-exports.insertProduct = (id, data, files, status) => fetch(
-    INSERT_PRODUCTS, 
-    id, 
+exports.insertProduct = (data, files, status) => fetch(
+    INSERT_PRODUCTS,
     data.name,
+    data.category,
     files,
     data.weight,
     data.warranty,

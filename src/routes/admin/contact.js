@@ -3,8 +3,8 @@ const { getData, contactedData, deleteData, searchData } = require("../../contro
 const { checkToken } = require("../../middlewares/checkToken");
 
 router.get("/contact/:page", checkToken, getData);
-router.patch("/contact/:id", checkToken, contactedData);
 router.patch("/contact/:id", checkToken, deleteData);
+router.patch("/contacted/:id", checkToken, contactedData);
 router.get("/search/contact", checkToken, searchData);
 
 module.exports = router;

@@ -30,6 +30,7 @@ exports.categorySchema = Joi.object({
 
 exports.productsSchema = Joi.object().keys({
     name: Joi.string().required(),
+    category: Joi.string().required(),
     images: Joi.string().min(3).not(""),
     weight: Joi.number().not(""),
     warranty: Joi.string().not(""),
