@@ -1,10 +1,11 @@
 const router = require("express").Router();
 const { getData, insertData, updateData, deleteData } = require("../../controllers/technology");
 const { validateTechnology } = require("../../middlewares/validate");
+const { checkToken } = require("../../middlewares/checkToken");
 
-router.get("/technology", getData);
-router.post("/technology", validateTechnology, insertData);
-router.put("/technology/:id", validateTechnology, updateData);
-router.patch("/technology/:id", deleteData);
+router.get("/technology", checkToken, getData);
+router.post("/technology", checkToken, validateTechnology, insertData);
+router.put("/technology/:id", checkToken, validateTechnology, updateData);
+router.patch("/technology/:id", checkToken, deleteData);
 
 module.exports = router;
