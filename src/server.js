@@ -13,8 +13,6 @@ app.use(cors());
 app.use(routes);
 app.use(express.static(path.join(__dirname, "uploads")));
 
-app.get("/", (req,res) => res.send("Ok"));
-
 app.listen(PORT, () => {
     console.log(`http://localhost:${PORT}`);
 });
