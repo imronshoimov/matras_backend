@@ -4,14 +4,19 @@ const fs = require("fs");
 const path = require("path");
 
 exports.getData = async (req, res) => {
-    const products = await model.getProducts();
-    const categories = await category.getCategories();
-    if(products && categories) {
-        res.status(200)
-        .send({ products, categories });
-    } else {
-        res.status(401)
-        .json({ message: "There is an error, please try again!" });
+    try{
+        const products = await model.getProducts();
+        const categories = await category.getCategories();
+        if(products && categories) {
+            res.status(200)
+            .send({ products, categories });
+        } else {
+            res.status(401)
+            .json({ message: "There is an error, please try again!" });
+        };
+    } catch(err) {
+        console.log(err);
+        throw err
     };
 };
 
@@ -63,8 +68,9 @@ exports.insertData = async (req, res) => {
             status = '3'
             insertController(req, res, files, status);
         };
-    } catch(error) {
-        console.log(error);
+    } catch(err) {
+        console.log(err);
+        throw err
     };
 };
 
@@ -131,25 +137,31 @@ exports.updateData = async (req, res) => {
             status = '3'
             updateController(id, req, res, files, status);
         };
-    } catch(error) {
-        console.log(error);
+    } catch(err) {
+        console.log(err);
+        throw err
     };
 };
 
 exports.deleteData = async (req, res) => {
-    const data = await model.deleteProducts(req.params.id);
-    let images = await model.selectImages(data.id);
-    images = JSON.parse(images.product_images);
+    try {
+        const data = await model.deleteProducts(req.params.id);
+        let images = await model.selectImages(data.id);
+        images = JSON.parse(images.product_images);
 
-    if(data) {
-        for(let image of images) {
-            fs.unlinkSync(path.join(process.cwd(), "src", "uploads", "products", image));
+        if(data) {
+            for(let image of images) {
+                fs.unlinkSync(path.join(process.cwd(), "src", "uploads", "products", image));
+            };
+
+            res.status(200) 
+                .json({ message: "Successfully deleted!", id: data.id });
+        } else {
+            res.status(400) 
+                .json({ message: "Bad request, please try again!", id: data.id });
         };
-
-        res.status(200) 
-            .json({ message: "Successfully deleted!", id: data.id });
-    } else {
-        res.status(400) 
-            .json({ message: "Bad request, please try again!", id: data.id });
+    } catch(err) {
+        console.log(err);
+        throw err
     };
 };

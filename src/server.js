@@ -9,7 +9,7 @@ const routes = require("./routes");
 // middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+app.use(cors({ origin: "*" }));
 app.use(routes);
 app.use(express.static(path.join(__dirname, "uploads")));
 
