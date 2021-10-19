@@ -8,6 +8,6 @@ router.use("/api", (req, res) =>
 	res.status(404).json({ status: 404, message: "No API route found" })
 );
 
-router.use("/", (req, res) => res.send("Ok"))
+router.get("/", (req, res) => res.send("Ok"))
 
 module.exports = router;
