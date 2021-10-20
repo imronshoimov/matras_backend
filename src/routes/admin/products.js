@@ -5,7 +5,7 @@ const { validateProducts } = require("../../middlewares/validate");
 const { checkToken } = require("../../middlewares/checkToken");
 
 router.get("/products", checkToken, getData);
-router.post("/products", checkToken, fileUpload("products").array("images", 12), validateProducts, insertData);
+router.post("/products/:id", checkToken, fileUpload("products").array("images", 12), validateProducts, insertData);
 router.put("/products/:id", checkToken, fileUpload("products").array("images", 12), validateProducts, updateData);
 router.patch("/products/:id", checkToken, deleteData);
 

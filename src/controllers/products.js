@@ -20,9 +20,9 @@ exports.getData = async (req, res) => {
     };
 };
 
-async function insertController(req, res, files, status) {
+async function insertController(categoryId, req, res, files, status) {
     if(req.body.isActive === "true") {
-        const data = await model.insertProduct(req.body, files, status);
+        const data = await model.insertProduct(categoryId, req.body, files, status);
         if(data) {
             res.status(201)
                 .json({ message: "Product successfully added!", id: data.id });
@@ -31,7 +31,7 @@ async function insertController(req, res, files, status) {
                 .json({ message: "Bad request, please try again!" });
         };
     } else {
-        const data = await model.insertProduct(req.body, files, status);
+        const data = await model.insertProduct(categoryId, req.body, files, status);
         await model.updateIsActive(data.id);
 
         if(data) {
@@ -49,6 +49,9 @@ exports.insertData = async (req, res) => {
         let files = [];
         req.files.forEach(element => files.push(element.filename));
         files = JSON.stringify(files);
+        
+        let id = req.params.id;
+        id = id > 0 ? id : null;
 
         const data = req.body;
         let status = '';
@@ -56,17 +59,17 @@ exports.insertData = async (req, res) => {
         if(data.new == "false" && data.discount == "false") {
             status = '0';
             data.newCost = null;
-            insertController(req, res, files, status);
+            insertController(id, req, res, files, status);
         } else if(data.new == "true" && data.discount == "false") {
             status = '1';
             data.newCost = null;
-            insertController(req, res, files, status);
+            insertController(id, req, res, files, status);
         } else if(data.new == "false" && data.discount == "true") {
             status = '2'
-            insertController(req, res, files, status);
+            insertController(id, req, res, files, status);
         } else if(data.new == "true" && data.discount == "true") {
             status = '3'
-            insertController(req, res, files, status);
+            insertController(id, req, res, files, status);
         };
     } catch(err) {
         console.log(err);

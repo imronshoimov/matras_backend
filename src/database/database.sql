@@ -39,6 +39,7 @@ CREATE TABLE categories(
 
 CREATE TABLE products(
     id serial primary key,
+    category_id int not null references categories(id),
     name varchar(50) not null, 
     category varchar(60) not null,
     product_images text not null,
