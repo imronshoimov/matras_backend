@@ -59,4 +59,4 @@ exports.insertOrders = (data) => fetch(
     data.count
 );
 exports.updateOrders = (id) => fetch(UPDATE_ORDERS, id);
-exports.searchOrder = async (data) => fetch(SEARCH_ORDER, data);
+exports.searchOrder = async (data) => fetchAll(SEARCH_ORDER, data);
