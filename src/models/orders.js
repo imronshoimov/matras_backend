@@ -42,10 +42,11 @@ SELECT
     name,
     '+998' || number as number,
     product_name,
-    count
+    count,
+    is_active
 FROM orders
 WHERE is_active = '1' AND
-name ILIKE '%' || $1 || '%' OR number ILIKE '%' || $1 || '%';
+name ILIKE '%'||$1||'%' OR number ILIKE '%'||$1||'%';
 `;
 
 exports.getCount = () => fetch(GET_COUNT);
@@ -58,4 +59,4 @@ exports.insertOrders = (data) => fetch(
     data.count
 );
 exports.updateOrders = (id) => fetch(UPDATE_ORDERS, id);
-exports.searchOrder = (data) => fetch(SEARCH_ORDER, data);
+exports.searchOrder = async (data) => fetch(SEARCH_ORDER, data);
